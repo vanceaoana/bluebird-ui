@@ -8,6 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class BoardCardComponent implements OnInit {
 
   @Input() boardItem: any;
+  userStory = 'USERSTORY';
+  bug = 'BUG';
+  task = 'TASK';
+  @Input() itemType: string;
 
   constructor() {
   }

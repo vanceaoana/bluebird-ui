@@ -1,6 +1,7 @@
 <div class="card" style="width: 18rem;">
   <div class="card-header" [ngClass]="{'user-story-header':userStory === itemType,'task-header':task === itemType,'bug-header':bug === itemType}">
-    {{boardItem.title}}{{itemType}}
+    {{boardItem.title}}<br/>
+    {{itemType}}
   </div>
   <div class="card-body">
     {{boardItem.description}}

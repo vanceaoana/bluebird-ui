@@ -7,14 +7,14 @@
   <!--Status: NEW -->
   <div class="col-sm-3">
 
-    <app-board-card [boardItem]="userStory" [itemType]="'USERSTORY'" *ngIf="userStory.status === 'NEW'"></app-board-card>
+    <app-board-card [boardItem]="userStory" [itemType]="'USERSTORY'" *ngIf="userStory.status.match(newStatus)"></app-board-card>
 
     <div *ngFor="let bug of userStory.bugList">
-      <app-board-card [boardItem]="bug" [itemType]= "'BUG'" *ngIf="bug.status === 'NEW'"></app-board-card>
+      <app-board-card [boardItem]="bug" [itemType]= "'BUG'" *ngIf="bug.status.match(newStatus)"></app-board-card>
     </div>
 
     <div *ngFor="let task of userStory.taskList">
-      <app-board-card [boardItem]="task" [itemType]="'TASK'" *ngIf="task.status === 'NEW'"></app-board-card>
+      <app-board-card [boardItem]="task" [itemType]="'TASK'" *ngIf="task.status.match(newStatus)"></app-board-card>
     </div>
 
   </div>
@@ -22,42 +22,42 @@
   <!--Status: In Progress -->
   <div class="col-sm-3">
 
-    <app-board-card [boardItem]="userStory" *ngIf="userStory.status === 'IN_PROGRESS'"></app-board-card>
+    <app-board-card [boardItem]="userStory"  [itemType]="'USERSTORY'"  *ngIf="userStory.status.match(inProgressStatus)"></app-board-card>
 
     <div *ngFor="let bug of userStory.bugList">
-      <app-board-card [boardItem]="bug" *ngIf="bug.status === 'IN_PROGRESS'"></app-board-card>
+      <app-board-card [boardItem]="bug"  [itemType]= "'BUG'" *ngIf="bug.status.match(inProgressStatus)"></app-board-card>
     </div>
 
     <div *ngFor="let task of userStory.taskList">
-      <app-board-card [boardItem]="task" *ngIf="task.status === 'IN_PROGRESS'"></app-board-card>
+      <app-board-card [boardItem]="task" [itemType]="'TASK'" *ngIf="task.status.match(inProgressStatus)"></app-board-card>
     </div>
   </div>
 
   <!--Status: In Review -->
   <div class="col-sm-3">
 
-    <app-board-card [boardItem]="userStory" *ngIf="userStory.status === 'IN_REVIEW'"></app-board-card>
+    <app-board-card [boardItem]="userStory" [itemType]="'USERSTORY'"  *ngIf="userStory.status.match(inReviewStatus)"></app-board-card>
 
     <div *ngFor="let bug of userStory.bugList">
-      <app-board-card [boardItem]="bug" *ngIf="bug.status === 'IN_REVIEW'"></app-board-card>
+      <app-board-card [boardItem]="bug" [itemType]= "'BUG'"  *ngIf="bug.status.match(inReviewStatus)"></app-board-card>
     </div>
 
     <div *ngFor="let task of userStory.taskList">
-      <app-board-card [boardItem]="task" *ngIf="task.status === 'IN_REVIEW'"></app-board-card>
+      <app-board-card [boardItem]="task" [itemType]="'TASK'" *ngIf="task.status.match(inReviewStatus)"></app-board-card>
     </div>
   </div>
 
   <!--Status: Done -->
   <div class="col-sm-3">
 
-    <app-board-card [boardItem]="userStory" *ngIf="userStory.status === 'DONE'"></app-board-card>
+    <app-board-card [boardItem]="userStory" [itemType]="'USERSTORY'"  *ngIf="userStory.status.match(doneStatus)"></app-board-card>
 
     <div *ngFor="let bug of userStory.bugList">
-      <app-board-card [boardItem]="bug" *ngIf="bug.status === 'DONE'"></app-board-card>
+      <app-board-card [boardItem]="bug" [itemType]= "'BUG'"  *ngIf="bug.status.match(doneStatus)"></app-board-card>
     </div>
 
     <div *ngFor="let task of userStory.taskList">
-      <app-board-card [boardItem]="task" *ngIf="task.status === 'DONE'"></app-board-card>
+      <app-board-card [boardItem]="task" [itemType]="'TASK'"  *ngIf="task.status.match(doneStatus)"></app-board-card>
     </div>
   </div>
 </div>

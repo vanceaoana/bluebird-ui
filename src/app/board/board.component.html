@@ -1,10 +1,63 @@
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
+<select [(value)]="users">
+  <option value="" disabled selected>select a category</option>
+  <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
+</select>
+
+<div class="row" *ngFor="let userStory of userStories">
+  <!--Status: NEW -->
+  <div class="col-sm-3">
+
+    <app-board-card [boardItem]="userStory" *ngIf="userStory.status === 'NEW'"></app-board-card>
+
+    <div *ngFor="let bug of userStory.bugList">
+      <app-board-card [boardItem]="bug" *ngIf="bug.status === 'NEW'"></app-board-card>
+    </div>
+
+    <div *ngFor="let task of userStory.taskList">
+      <app-board-card [boardItem]="task" *ngIf="task.status === 'NEW'"></app-board-card>
+    </div>
+
+  </div>
+
+  <!--Status: In Progress -->
+  <div class="col-sm-3">
+
+    <app-board-card [boardItem]="userStory" *ngIf="userStory.status === 'IN_PROGRESS'"></app-board-card>
+
+    <div *ngFor="let bug of userStory.bugList">
+      <app-board-card [boardItem]="bug" *ngIf="bug.status === 'IN_PROGRESS'"></app-board-card>
+    </div>
+
+    <div *ngFor="let task of userStory.taskList">
+      <app-board-card [boardItem]="task" *ngIf="task.status === 'IN_PROGRESS'"></app-board-card>
+    </div>
+  </div>
+
+  <!--Status: In Review -->
+  <div class="col-sm-3">
+
+    <app-board-card [boardItem]="userStory" *ngIf="userStory.status === 'IN_REVIEW'"></app-board-card>
+
+    <div *ngFor="let bug of userStory.bugList">
+      <app-board-card [boardItem]="bug" *ngIf="bug.status === 'IN_REVIEW'"></app-board-card>
+    </div>
+
+    <div *ngFor="let task of userStory.taskList">
+      <app-board-card [boardItem]="task" *ngIf="task.status === 'IN_REVIEW'"></app-board-card>
+    </div>
+  </div>
+
+  <!--Status: Done -->
+  <div class="col-sm-3">
+
+    <app-board-card [boardItem]="userStory" *ngIf="userStory.status === 'DONE'"></app-board-card>
+
+    <div *ngFor="let bug of userStory.bugList">
+      <app-board-card [boardItem]="bug" *ngIf="bug.status === 'DONE'"></app-board-card>
+    </div>
+
+    <div *ngFor="let task of userStory.taskList">
+      <app-board-card [boardItem]="task" *ngIf="task.status === 'DONE'"></app-board-card>
+    </div>
   </div>
 </div>

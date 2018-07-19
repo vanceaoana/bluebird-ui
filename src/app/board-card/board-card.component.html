@@ -1,0 +1,27 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    {{boardItem.title}}
+  </div>
+  <div class="card-body">
+    {{boardItem.description}}
+  </div>
+
+  <div class="card-footer text-muted">
+    <div class="row">
+      <div class="col">
+        Owner: {{boardItem.userId}}
+      </div>
+      <div class="col">
+        Status: {{boardItem.status}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      Priority: {{boardItem.priority}}
+    </div>
+    <div class="col">
+      Estimation: {{boardItem.estimation}}
+    </div>
+  </div>
+</div>

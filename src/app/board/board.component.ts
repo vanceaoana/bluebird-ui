@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../service/user.service';
 import {UserModel} from '../domain/user-model';
+import {UserStory} from '../domain/userStory';
+import {UserStoryService} from '../service/user-story.service';
 
 @Component({
   selector: 'app-board',
@@ -9,12 +11,16 @@ import {UserModel} from '../domain/user-model';
 })
 export class BoardComponent implements OnInit {
 
-  users: UserModel[];
+  users: UserModel[] = [];
 
-  constructor(private userService: UserService) { }
+  userStories: UserStory[] = [];
+
+  constructor(private userService: UserService, private userStoryService: UserStoryService) {
+  }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe((response: UserModel[]) => this.users = response);
+    this.userService.getAllUsers().subscribe((response: UserModel[]) => this.users = response);
+    this.userStoryService.getAllUserStories().subscribe((response: UserStory[]) => this.userStories = response);
   }
 
 }

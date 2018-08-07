@@ -27,4 +27,18 @@
       Estimation: {{boardItem.estimation}}
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <div  *ngIf="userStory === itemType">
+        <i class="fas fa-plus" (click)="openEmptyDialog(userStory)"></i>
+        <i class="fas fa-plus" (click)="openEmptyDialog(task)"></i>
+        <i class="fas fa-plus" (click)="openEmptyDialog(bug)"></i>
+      </div>
+    </div>
+    <div class="col">
+      <div class = "delete-icon">
+        <i class="fas fa-trash"></i>
+      </div>
+    </div>
+  </div>
 </div>

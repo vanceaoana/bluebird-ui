@@ -7,3 +7,8 @@
 .bug-header{
   background-color: mediumpurple;
 }
+.delete-icon{
+  float: right;
+  margin-right: 7px;
+  margin-bottom: 3px;
+}

@@ -6,6 +6,10 @@ import {AppConstants} from '../util/app-constants';
 import {UserModel} from '../domain/user-model';
 import {UserStory} from '../domain/userStory';
 import {UserStoryService} from '../service/user-story.service';
+import {BugService} from '../service/bug.service';
+import {TaskService} from '../service/task.service';
+import {Bug} from '../domain/bug';
+import {Task} from '../domain/task';
 
 @Component({
   selector: 'app-board-card',
@@ -27,7 +31,9 @@ export class BoardCardComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
               private formBuilder: FormBuilder,
-              private userStoryService: UserStoryService) {
+              private userStoryService: UserStoryService,
+              private taskService: TaskService,
+              private bugService: BugService) {
   }
 
   openDialog(): void {
@@ -53,23 +59,120 @@ export class BoardCardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        this.boardItem.id = result.formGroup.controls['id'].value;
-        this.boardItem.title = result.formGroup.controls['title'].value;
-        this.boardItem.description = result.formGroup.controls['description'].value;
-        this.boardItem.status = result.formGroup.controls['status'].value;
-        this.boardItem.priority = result.formGroup.controls['priority'].value;
-        this.boardItem.estimation = result.formGroup.controls['estimation'].value;
+        this.boardItem = this.getPopulatedBoardItem(this.boardItem, result);
+        if (this.itemType === this.userStory) {
+          this.userStoryService.updateUserStory(this.boardItem).subscribe(
+            (response) => console.log('User story with id: ' + this.boardItem.id + ' has been updated '),
+            (error) => console.log(error));
+        }
+        if (this.itemType === this.task) {
+          this.taskService.updateTask(this.boardItem).subscribe(
+            (response) => console.log('Task with id: ' + this.boardItem.id + ' has been updated '),
+            (error) => console.log(error));
+        }
+        if (this.itemType === this.bug) {
+          this.bugService.updateBug(this.boardItem).subscribe(
+            (response) => console.log('Bug with id: ' + this.boardItem.id + ' has been updated '),
+            (error) => console.log(error));
+        }
 
-        this.boardItem.userId = result.formGroup.controls['userId'].value;
-
-        this.userStoryService.updateUserStory(this.boardItem).subscribe(
-          (response) => console.log('User story with id: ' + this.boardItem.id + ' has been updated '),
-          (error) => console.log(error));
       }
       console.log('The dialog was closed');
     });
   }
 
+  openEmptyDialog(itemType: any): void {
+    const formGroup = this.formBuilder.group({
+      id: null,
+      title: '',
+      description: '',
+      priority: '',
+      estimation: '',
+      status: '',
+      userId: ''
+    });
+
+    const statusList: string[] = this.statusList;
+
+    const dialogRef = this.dialog.open(BoardPopUpComponent, {
+      width: '60%',
+      height: '40%',
+      minHeight: '460px',
+      minWidth: '600px',
+      data: {formGroup, statusList}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result != null) {
+        if (itemType === this.userStory) {
+          const newUserStory = this.getNewUserStory(result);
+          this.userStoryService.createUserStory(newUserStory).subscribe(
+            (response) => console.log('User story with id: ' + newUserStory.id + ' has been created '),
+            (error) => console.log(error));
+        }
+        if (itemType === this.task) {
+          const newTask = this.getNewTask(this.boardItem.id, result);
+          this.taskService.createTask(newTask).subscribe(
+            (response) => console.log('Task with id: ' + newTask.id + ' has been created '),
+            (error) => console.log(error));
+        }
+        if (itemType === this.bug) {
+          const newBug = this.getNewBug(this.boardItem.id, result);
+          this.bugService.createBug(newBug).subscribe(
+            (response) => console.log('Bug with id: ' + newBug.id + ' has been created '),
+            (error) => console.log(error));
+        }
+
+      }
+      console.log('The dialog was closed');
+    });
+  }
+
+  getPopulatedBoardItem(boardItem, result:any): any{
+
+    boardItem.id = result.formGroup.controls['id'].value;
+    boardItem.title = result.formGroup.controls['title'].value;
+    boardItem.description = result.formGroup.controls['description'].value;
+    boardItem.status = result.formGroup.controls['status'].value;
+    boardItem.priority = result.formGroup.controls['priority'].value;
+    boardItem.estimation = result.formGroup.controls['estimation'].value;
+    boardItem.userId = result.formGroup.controls['userId'].value;
+    return boardItem;
+  }
+
+  getNewUserStory(result:any): any{
+    const boardItem = new UserStory();
+    boardItem.title = result.formGroup.controls['title'].value;
+    boardItem.description = result.formGroup.controls['description'].value;
+    boardItem.status = result.formGroup.controls['status'].value;
+    boardItem.priority = result.formGroup.controls['priority'].value;
+    boardItem.estimation = result.formGroup.controls['estimation'].value;
+    boardItem.userId = result.formGroup.controls['userId'].value;
+    return boardItem;
+  }
+
+  getNewTask(userStoryId: number, result:any): any{
+    const boardItem = new Task();
+    boardItem.title = result.formGroup.controls['title'].value;
+    boardItem.description = result.formGroup.controls['description'].value;
+    boardItem.status = result.formGroup.controls['status'].value;
+    boardItem.priority = result.formGroup.controls['priority'].value;
+    boardItem.estimation = result.formGroup.controls['estimation'].value;
+    boardItem.userStoryId = userStoryId;
+    boardItem.userId = result.formGroup.controls['userId'].value;
+    return boardItem;
+  }
+  getNewBug(userStoryId: number, result:any): any{
+    const boardItem = new Bug();
+    boardItem.title = result.formGroup.controls['title'].value;
+    boardItem.description = result.formGroup.controls['description'].value;
+    boardItem.status = result.formGroup.controls['status'].value;
+    boardItem.priority = result.formGroup.controls['priority'].value;
+    boardItem.estimation = result.formGroup.controls['estimation'].value;
+    boardItem.userId = result.formGroup.controls['userId'].value;
+    boardItem.userStoryId = userStoryId;
+    return boardItem;
+  }
   ngOnInit() {
   }
 

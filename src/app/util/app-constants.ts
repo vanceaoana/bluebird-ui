@@ -1,5 +1,5 @@
 export class AppConstants {
-  public static readonly NEW = 'New';
+  public static readonly NEW = 'NEW';
   public static readonly IN_PROGRESS = 'In Progress';
   public static readonly IN_REVIEW = 'In Review';
   public static readonly DONE = 'Done';

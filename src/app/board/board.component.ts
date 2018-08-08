@@ -35,6 +35,15 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     this.userService.getAllUsers().subscribe((response: UserModel[]) => this.users = response);
     this.userStoryService.getAllUserStories().subscribe((response: UserStory[]) => this.userStories = response);
+
+    this.userStoryService.removeUserStory.subscribe(userStoryId => {
+      const indexOfUserStory = this.userStories.findIndex(userStory => userStory.id === userStoryId);
+      this.userStories.splice(indexOfUserStory, 1);
+    });
+
+    this.userStoryService.addUserStory.subscribe(newUserStory => {
+      this.userStories.push(newUserStory);
+    });
     // this.bugService.getAllUserStories().subscribe((response: UserStory[]) => this.userStories = response);
     // this.taskService.getAllUserStories().subscribe((response: UserStory[]) => this.userStories = response);
   }

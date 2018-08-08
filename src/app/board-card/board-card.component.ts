@@ -3,7 +3,6 @@ import {BoardPopUpComponent} from '../board-pop-up/board-pop-up.component';
 import {MatDialog} from '@angular/material';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AppConstants} from '../util/app-constants';
-import {UserModel} from '../domain/user-model';
 import {RemoveItemDialogComponent} from '../remove-item-dialog/remove-item-dialog.component';
 import {UserStory} from '../domain/userStory';
 import {UserStoryService} from '../service/user-story.service';
@@ -109,9 +108,7 @@ export class BoardCardComponent implements OnInit {
       if (result != null) {
         if (itemType === this.userStory) {
           const newUserStory = this.getNewUserStory(result);
-          this.userStoryService.createUserStory(newUserStory).subscribe(
-            (response) => console.log('User story with id: ' + newUserStory.id + ' has been created '),
-            (error) => console.log(error));
+          this.userStoryService.createUserStory(newUserStory);
         }
         if (itemType === this.task) {
           const newTask = this.getNewTask(this.boardItem.id, result);
@@ -198,9 +195,7 @@ export class BoardCardComponent implements OnInit {
 
   deleteItem(itemType: any): void {
     if (itemType === this.userStory) {
-      this.userStoryService.deleteUserStory(this.boardItem.id).subscribe(
-        (response) => console.log('UserStory with id: ' + this.boardItem.id + ' has been removed '),
-        (error) => console.log(error));
+      this.userStoryService.deleteUserStory(this.boardItem.id);
     } else {
       if (itemType === this.bug) {
         this.bugService.deleteBug(this.boardItem.id).subscribe(

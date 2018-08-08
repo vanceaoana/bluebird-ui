@@ -33,13 +33,16 @@ import {
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { RemoveItemDialogComponent } from './remove-item-dialog/remove-item-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BoardComponent,
     BoardCardComponent,
-    BoardPopUpComponent
+    BoardPopUpComponent,
+    RemoveItemDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTabsModule
+    MatTabsModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     MatAutocompleteModule,
@@ -101,7 +105,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatTooltipModule,
   ],
   entryComponents: [
-    BoardPopUpComponent
+    BoardPopUpComponent,
+    RemoveItemDialogComponent
   ],
   providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent]

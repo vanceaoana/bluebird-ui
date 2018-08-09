@@ -44,6 +44,28 @@ export class BoardComponent implements OnInit {
     this.userStoryService.addUserStory.subscribe(newUserStory => {
       this.userStories.push(newUserStory);
     });
+
+    this.taskService.removeTask.subscribe( task => {
+      const userStoryToModify = this.userStories.find(userStory => userStory.id === task.userStoryId);
+      const indexOfTask = userStoryToModify.taskList.findIndex(task1 => task1.id === task.id);
+      userStoryToModify.taskList.splice(indexOfTask, 1);
+    });
+
+    this.bugService.removeBug.subscribe( bug => {
+      const userStoryToModify = this.userStories.find(userStory => userStory.id === bug.userStoryId);
+      const indexOfBug = userStoryToModify.bugList.findIndex(bug1 => bug1.id === bug.id);
+      userStoryToModify.bugList.splice(indexOfBug, 1);
+    });
+
+    this.taskService.addTask.subscribe(newTask => {
+      const userStoryToModify = this.userStories.find(userStory => userStory.id === newTask.userStoryId);
+      userStoryToModify.taskList.push(newTask);
+    });
+
+    this.bugService.addBug.subscribe(newBug => {
+      const userStoryToModify = this.userStories.find(userStory => userStory.id === newBug.userStoryId);
+      userStoryToModify.bugList.push(newBug);
+    });
     // this.bugService.getAllUserStories().subscribe((response: UserStory[]) => this.userStories = response);
     // this.taskService.getAllUserStories().subscribe((response: UserStory[]) => this.userStories = response);
   }

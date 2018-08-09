@@ -1,11 +1,11 @@
-.user-story-header{
-  background-color: indianred;
+.user-story-header, .new-story-button{
+  background-color: mediumpurple;
 }
-.task-header{
+.task-header, .new-task-button{
   background-color: darkseagreen;
 }
-.bug-header{
-  background-color: mediumpurple;
+.bug-header, .new-bug-button{
+  background-color: indianred;
 }
 .delete-icon{
   float: right;
@@ -13,8 +13,8 @@
   margin-bottom: 3px;
 }
 .fa-plus{
-  margin: 3px;
-  padding: 1px;
-  border: 1px solid #021a40;
+  padding: 3px;
+  border: 5px solid white;
 }
+
 

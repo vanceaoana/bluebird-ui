@@ -112,17 +112,12 @@ export class BoardCardComponent implements OnInit {
         }
         if (itemType === this.task) {
           const newTask = this.getNewTask(this.boardItem.id, result);
-          this.taskService.createTask(newTask).subscribe(
-            (response) => console.log('Task with id: ' + newTask.id + ' has been created '),
-            (error) => console.log(error));
+          this.taskService.createTask(newTask);
         }
         if (itemType === this.bug) {
           const newBug = this.getNewBug(this.boardItem.id, result);
-          this.bugService.createBug(newBug).subscribe(
-            (response) => console.log('Bug with id: ' + newBug.id + ' has been created '),
-            (error) => console.log(error));
+          this.bugService.createBug(newBug);
         }
-
       }
       console.log('The dialog was closed');
     });
@@ -198,14 +193,10 @@ export class BoardCardComponent implements OnInit {
       this.userStoryService.deleteUserStory(this.boardItem.id);
     } else {
       if (itemType === this.bug) {
-        this.bugService.deleteBug(this.boardItem.id).subscribe(
-          (response) => console.log('Bug with id: ' + this.boardItem.id + ' has been removed '),
-          (error) => console.log(error));
+        this.bugService.deleteBug(this.boardItem);
       } else {
         if (itemType === this.task) {
-          this.taskService.deleteTask(this.boardItem.id).subscribe(
-            (response) => console.log('Task with id: ' + this.boardItem.id + ' has been removed '),
-            (error) => console.log(error));
+          this.taskService.deleteTask(this.boardItem);
         }
       }
     }

@@ -1,5 +1,7 @@
 <div class="card" style="width: 18rem;">
-  <div class="card-header" [ngClass]="{'user-story-header':userStory === itemType,'task-header':task === itemType,'bug-header':bug === itemType}">
+  <div class="card-header"
+       [ngClass]="{'user-story-header':userStory === itemType,'task-header':task === itemType,'bug-header':bug === itemType}"
+       (click)="openDialog()">
     {{boardItem.title}}<br/>
     {{itemType}}
   </div>
@@ -23,6 +25,26 @@
     </div>
     <div class="col">
       Estimation: {{boardItem.estimation}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div *ngIf="userStory === itemType">
+        <span class="new-story-button">
+          <i class="fas fa-plus" (click)="openEmptyDialog(userStory)"></i>
+        </span>
+        <span class="new-task-button">
+          <i class="fas fa-plus" (click)="openEmptyDialog(task)"></i>
+        </span>
+        <span class="new-bug-button">
+          <i class="fas fa-plus" (click)="openEmptyDialog(bug)"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="delete-icon">
+        <i class="fas fa-trash" (click)="openRemoveStoryDialog(itemType)"></i>
+      </div>
     </div>
   </div>
 </div>

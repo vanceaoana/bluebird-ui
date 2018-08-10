@@ -1,7 +1,10 @@
-<select [(value)]="users">
-  <option value="" disabled selected>select a category</option>
-  <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
-</select>
+<mat-form-field>
+  <mat-select placeholder="Select a user">
+    <mat-option *ngFor="let user of users"  [value]="user.id">
+      {{user.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
 <div class="row board-row" *ngFor="let userStory of userStories" >
   <!--Status: NEW -->
@@ -14,7 +17,7 @@
     </div>
 
     <div *ngFor="let task of userStory.taskList">
-      <app-board-card [boardItem]="task" [itemType]="'TASK'" *ngIf="task.status.match(newStatus)"></app-board-card>
+      <app-board-card [boardItem]="task" [itemType]="'TASK'" *ngIf="task.status.match(newStatus) "></app-board-card>
     </div>
 
   </div>

@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable, Output} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Bug} from '../domain/bug';
@@ -11,6 +11,7 @@ import {HttpUtil} from './http-util';
 })
 export class BugService {
   private bugUrl = 'http://localhost:8080/bug/';
+  private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
 
   @Output() removeBug: EventEmitter<Bug> = new EventEmitter();
   @Output() addBug: EventEmitter<Bug> = new EventEmitter();
@@ -19,11 +20,11 @@ export class BugService {
   }
 
   getBug(id: number): Observable<Bug> {
-    return this.http.get<Bug>(this.bugUrl + id).pipe(catchError(err => HttpUtil.handleError(err)));
+    return this.http.get<Bug>(this.bugUrl + id, {headers: this.header}).pipe(catchError(err => HttpUtil.handleError(err)));
   }
 
   createBug(bug: Bug): void {
-    this.http.post<Bug>(this.bugUrl, bug).pipe(catchError(err => HttpUtil.handleError(err)))
+    this.http.post<Bug>(this.bugUrl, bug, {headers: this.header}).pipe(catchError(err => HttpUtil.handleError(err)))
       .subscribe(
         (response) => {
           this.addBug.emit(response);
@@ -34,7 +35,7 @@ export class BugService {
   }
 
   updateBug(bug: Bug): Observable<Bug> {
-    return this.http.put<Bug>(this.bugUrl, bug).pipe(catchError(err => HttpUtil.handleError(err)));
+    return this.http.put<Bug>(this.bugUrl, bug, {headers: this.header}).pipe(catchError(err => HttpUtil.handleError(err)));
   }
 
   deleteBug(bug: Bug): void {

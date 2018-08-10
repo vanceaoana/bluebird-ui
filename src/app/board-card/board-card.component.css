@@ -1,13 +1,17 @@
 .user-story-header, .new-story-button{
   background-color: mediumpurple;
+  cursor: pointer;
 }
 .task-header, .new-task-button{
   background-color: darkseagreen;
+  cursor: pointer;
 }
 .bug-header, .new-bug-button{
   background-color: indianred;
+  cursor: pointer;
 }
 .delete-icon{
+  cursor: pointer;
   float: right;
   margin-right: 7px;
   margin-bottom: 3px;

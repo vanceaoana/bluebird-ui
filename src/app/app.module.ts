@@ -34,7 +34,18 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { LOCAL_STORAGE, StorageServiceModule } from 'ngx-webstorage-service';
 import { RemoveItemDialogComponent } from './remove-item-dialog/remove-item-dialog.component';
+import { SigninComponent } from './signin/signin.component';
+import {RouterModule, Routes} from '@angular/router';
+import { HeaderComponent } from './header/header.component';
+import {LOCAL_STORAGE_SERVICE, LocalStorageService} from './service/local-storage-service';
+import {AuthService} from './service/auth-service';
+
+const appRoutes: Routes = [
+  {path: 'signin', component: SigninComponent},
+  {path: '', component: BoardComponent}
+];
 
 @NgModule({
   declarations: [
@@ -42,7 +53,9 @@ import { RemoveItemDialogComponent } from './remove-item-dialog/remove-item-dial
     BoardComponent,
     BoardCardComponent,
     BoardPopUpComponent,
-    RemoveItemDialogComponent
+    RemoveItemDialogComponent,
+    SigninComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +80,9 @@ import { RemoveItemDialogComponent } from './remove-item-dialog/remove-item-dial
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StorageServiceModule,
+    RouterModule.forRoot(appRoutes)
   ],
   exports: [
     MatAutocompleteModule,
@@ -103,12 +118,18 @@ import { RemoveItemDialogComponent } from './remove-item-dialog/remove-item-dial
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    RouterModule
   ],
   entryComponents: [
     BoardPopUpComponent,
-    RemoveItemDialogComponent
+    RemoveItemDialogComponent,
+    SigninComponent
   ],
-  providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    LocalStorageService,
+    AuthService,
+    {provide: LOCAL_STORAGE_SERVICE, useExisting: LOCAL_STORAGE}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

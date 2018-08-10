@@ -7,6 +7,7 @@ import {Bug} from '../domain/bug';
 import {Task} from '../domain/task';
 import {TaskService} from '../service/task.service';
 import {BugService} from '../service/bug.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -28,8 +29,11 @@ export class BoardComponent implements OnInit {
   inReviewStatus = 'IN_REVIEW';
   doneStatus = 'DONE';
 
-  constructor(private userService: UserService, private userStoryService: UserStoryService,
-              private taskService: TaskService, private bugService: BugService) {
+  constructor(private userService: UserService,
+              private userStoryService: UserStoryService,
+              private taskService: TaskService,
+              private bugService: BugService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -45,13 +49,13 @@ export class BoardComponent implements OnInit {
       this.userStories.push(newUserStory);
     });
 
-    this.taskService.removeTask.subscribe( task => {
+    this.taskService.removeTask.subscribe(task => {
       const userStoryToModify = this.userStories.find(userStory => userStory.id === task.userStoryId);
       const indexOfTask = userStoryToModify.taskList.findIndex(task1 => task1.id === task.id);
       userStoryToModify.taskList.splice(indexOfTask, 1);
     });
 
-    this.bugService.removeBug.subscribe( bug => {
+    this.bugService.removeBug.subscribe(bug => {
       const userStoryToModify = this.userStories.find(userStory => userStory.id === bug.userStoryId);
       const indexOfBug = userStoryToModify.bugList.findIndex(bug1 => bug1.id === bug.id);
       userStoryToModify.bugList.splice(indexOfBug, 1);

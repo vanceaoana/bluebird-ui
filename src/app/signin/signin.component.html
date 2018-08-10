@@ -1,0 +1,23 @@
+<div>
+  <mat-card class="sign-in-card">
+    <mat-card-header>
+      <img class="bluebird-logo" src="https://www.livehappy.com/sites/default/files/styles/article_featured/public/main/articles/birdwebflowersoptimized.jpg?itok=hmDQVdrh"
+           alt="BlueBird logo">
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="signInFormGroup">
+        <mat-form-field class="form-input">
+          <input matInput placeholder="email" type="email" formControlName='email'>
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="form-input">
+          <input matInput placeholder="password" type="password" formControlName='password'/>
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" (click)="onSignin()">Sign in</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

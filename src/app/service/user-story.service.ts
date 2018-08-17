@@ -10,7 +10,7 @@ import {UserStory} from '../domain/userStory';
   providedIn: 'root'
 })
 export class UserStoryService {
-  private userStoryUrl = 'http://localhost:8080/userstory/';
+  private userStoryUrl = 'http://localhost:7443/bluebird/api/userstory/';
 
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
 

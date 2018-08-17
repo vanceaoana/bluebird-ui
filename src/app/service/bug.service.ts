@@ -10,7 +10,7 @@ import {HttpUtil} from './http-util';
   providedIn: 'root'
 })
 export class BugService {
-  private bugUrl = 'http://localhost:8080/bug/';
+  private bugUrl = 'http://localhost:7443/bluebird/api/bug/';
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
 
   @Output() removeBug: EventEmitter<Bug> = new EventEmitter();

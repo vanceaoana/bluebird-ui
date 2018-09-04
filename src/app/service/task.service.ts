@@ -10,7 +10,7 @@ import {HttpUtil} from './http-util';
   providedIn: 'root'
 })
 export class TaskService {
-  private taskUrl = 'http://localhost:7443/bluebird/api/task/';
+  private taskUrl = '/bluebird/api/task/';
   private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
 
   @Output() removeTask: EventEmitter<Task> = new EventEmitter();

@@ -12,7 +12,7 @@ import {UserStory} from '../domain/userStory';
 export class UserStoryService {
   private userStoryUrl = '/bluebird/api/userstory/';
 
-  private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
+  private header = new HttpHeaders({'Content-Type': 'application/json'});
 
   @Output() removeUserStory: EventEmitter<number> = new EventEmitter();
   @Output() addUserStory: EventEmitter<UserStory> = new EventEmitter();

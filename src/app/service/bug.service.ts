@@ -11,7 +11,7 @@ import {HttpUtil} from './http-util';
 })
 export class BugService {
   private bugUrl = '/bluebird/api/bug/';
-  private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
+  private header = new HttpHeaders({'Content-Type': 'application/json'});
 
   @Output() removeBug: EventEmitter<Bug> = new EventEmitter();
   @Output() addBug: EventEmitter<Bug> = new EventEmitter();

@@ -11,7 +11,7 @@ import {HttpUtil} from './http-util';
 })
 export class UserService {
   private userUrl = '/bluebird/api/user/';
-  private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
+  private header = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient) {
   }

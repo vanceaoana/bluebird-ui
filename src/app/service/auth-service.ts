@@ -19,7 +19,6 @@ export class AuthService {
     this.userService.checkCreditentials(authenticationHeaderValue).subscribe(result => {
 
         if (result === true) {
-          console.log("checking Creditentials");
           this.changeIsAuthenticated.emit(true);
           this.localStorage.set('Authorization', authenticationHeaderValue);
           this.router.navigate(['']);
@@ -32,6 +31,14 @@ export class AuthService {
 
   }
 
+  public isAuthenticated(): boolean {
+    const basicAuth = this.localStorage.get('Authorization');
+    return !((basicAuth === undefined)  || (basicAuth === null))
+  }
+
+  getBasicAuth(): string{
+    return this.localStorage.get('Authorization');
+  }
 
   signOut() {
     this.changeIsAuthenticated.emit(false);

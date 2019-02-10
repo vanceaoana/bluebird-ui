@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BoardCardComponent} from './board-card/board-card.component';
 import { BoardPopUpComponent } from './board-pop-up/board-pop-up.component';
 import {
@@ -41,10 +41,12 @@ import {RouterModule, Routes} from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import {LOCAL_STORAGE_SERVICE, LocalStorageService} from './service/local-storage-service';
 import {AuthService} from './service/auth-service';
+import {AuthGuard} from "./guard/AuthGuard";
+import {BasicAuthInterceptor} from "./interceptor/BasicAuthInterceptor";
 
 const appRoutes: Routes = [
   {path: 'signin', component: SigninComponent},
-  {path: '', component: BoardComponent}
+  {path: '', component: BoardComponent,canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -80,6 +82,7 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatTabsModule,
+    MatToolbarModule,
     ToastrModule.forRoot(),
     StorageServiceModule,
     RouterModule.forRoot(appRoutes)
@@ -128,7 +131,9 @@ const appRoutes: Routes = [
   providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
     LocalStorageService,
     AuthService,
-    {provide: LOCAL_STORAGE_SERVICE, useExisting: LOCAL_STORAGE}
+    AuthGuard,
+    {provide: LOCAL_STORAGE_SERVICE, useExisting: LOCAL_STORAGE},
+    {provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

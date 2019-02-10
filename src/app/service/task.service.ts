@@ -11,7 +11,7 @@ import {HttpUtil} from './http-util';
 })
 export class TaskService {
   private taskUrl = '/bluebird/api/task/';
-  private header = new HttpHeaders({'Content-Type': 'application/json', 'Authorization': 'Basic dXNlcjp1c2Vy'});
+  private header = new HttpHeaders({'Content-Type': 'application/json'});
 
   @Output() removeTask: EventEmitter<Task> = new EventEmitter();
   @Output() addTask: EventEmitter<Task> = new EventEmitter();
